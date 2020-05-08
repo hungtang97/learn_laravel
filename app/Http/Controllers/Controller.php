@@ -12,10 +12,10 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    // public function index()
-    // {
-    //     $users = DB::select('select * from users', [1]);
+    public function index()
+    {
+        $users = DB::select('select * from users', [1]);
 
-    //     return view('userslist', ['users' => $users]);
-    // }
+        return view('userslist', ['users' => $users]);
+    }
 }

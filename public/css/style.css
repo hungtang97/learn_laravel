@@ -1,0 +1,8 @@
+.margin-central {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50% !important;
+}
+.text-central {
+    text-align: center;
+}
