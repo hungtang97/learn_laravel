@@ -24,15 +24,14 @@ Route::get( 'xin-chao/{ten?}/{namsinh?}' , function($ten='nguyễn thế Phúc',
 return 'Chào bạn: ' . $ten.'<br>Có năm sinh là: '.$namsinh; 
 });
 
-// Route::get('/userslist', function () {
-//     $users = DB::table('users')->get();
-//     return view('userslist', ['users' => $users]);
-// });
-
 Route::get('/checkDB', function ()
 {
     dd(DB::connection()->getDatabaseName());
 });
 
-Route::get('userslist', 'Controller@index');
-Route::post('handle-form', 'HandleController@handleRequest');
+Route::get('users', 'Controller@getListUser');
+Route::get('users/edit/{id?}', 'Controller@getUserById');
+Route::get('users/del/{id?}', 'Controller@delUserById');
+
+Route::post('handle-add-user', 'HandleController@handleRequestAdd');
+Route::post('handle-edit-user/{id?}', 'HandleController@handleRequestEdit');

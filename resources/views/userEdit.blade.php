@@ -12,31 +12,35 @@
 <body>
     <div>
         <div>
-            <h3 class="text-central">Add new user</h3>
-            <form action="{{ url('handle-add-user') }}" class="margin-central" method="POST">
+            <h3 class="text-central">Edit user</h3>
+            @isset($user)
+            @foreach($user as $user)
+            <form action="{{ url('handle-edit-user/'.$user-> id) }}" class="margin-central" method="POST">
+                @isset($message)
+                    <h3 class="text-danger" id="message">{{ $message }}</h3>
+                    <script>
+                        setTimeout(function(){
+                            document.getElementById("message").style.display = "none";
+                        }, 3000);
+                    </script>
+                @endisset
                 <div class="form-group">
                     {{ csrf_field() }}
-                    @isset($message2)
-                        <h3 class="text-success">{{ $message2 }}</h3>
-                        <script>
-                            setTimeout(function(){
-                                window.location = "/users";
-                            }, 3000);
-                        </script>
-                    @endisset
                     <label>Username:</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+                    <input type="text" class="form-control" id="username" name="username" value="{{ $user-> username }}">
                     <p class="text-danger">{{ $errors->first('username') }}</p>
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your username with anyone else.</small>
                 </div>
                 <div class="form-group">
                     <label>Fullname:</label>
-                    <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Fullname">
+                    <input type="text" class="form-control" id="fullname" name="fullname" value="{{ $user-> fullname }}">
                     <p class="text-danger">{{ $errors->first('fullname') }}</p>
                 </div>
-                <button type="submit" class="btn btn-primary">ADD</button>
+                <button type="submit" class="btn btn-primary" onclick="return confirm('Do you want to update this user?')">Update</button>
             </form>
+            @endforeach
+            @endisset
         </div>
+        @isset($users)
         <div>
             <h3 class="text-central">Users List</h3>
             <table class="table margin-central">
@@ -56,7 +60,7 @@
                     <th>{{ $user-> created_at }}</th>
                     <th>{{ $user-> updated_at }}</th>
                     <th>
-                        <a href="{{ url('users/edit/'.$user-> id) }}"><i class="fa fa-edit" style="font-size:24px"></i></a>
+                    <a href="{{ url('users/edit/'.$user-> id) }}"><i class="fa fa-edit" style="font-size:24px"></i></a>
                         <a href="{{ url('users/del/'.$user-> id) }}" onclick="return confirm('Do you want to Delete this user?')">
                             <i class="fa fa-trash-o" style="font-size:24px"></i>
                         </a>
@@ -65,6 +69,7 @@
             @endforeach
             <table>
         </div>
+        @endisset
     </div>
 </body>
 </html>
